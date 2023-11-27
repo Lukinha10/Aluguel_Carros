@@ -1,0 +1,79 @@
+create table cliente(
+	idCliente int primary key auto_increment,
+	telefoneCliente varchar(100),
+	nomeCliente varchar(100) NOT NULL,
+	emailCliente varchar(100) not null,
+	fk_idEndereco int,
+	FOREIGN KEY (fk_idEndereco) REFERENCES endereco(idEndereco) 	
+);
+
+drop table cliente;
+drop table endereco;
+
+create table endereco(
+	idEndereco int primary key auto_increment,
+	rua varchar(100) NOT NULL,
+    bairro varchar(100) not null,
+	cidade varchar(100),
+	numero int,
+	UF varchar(2),
+	CHECK (numero>0)
+);
+
+create table veiculo(
+	idVeiculo int primary key auto_increment,
+	nomeVeiculo varchar(100),
+	placaVeiculo varchar(100) NOT NULL,
+	anoVeiculo int,
+	marcaVeiculo varchar(50) NOT NULL,
+	precoLoc double,
+	corVeiculo varchar(100) not null
+);
+drop table veiculo;
+
+create table funcionario(
+	idFuncionario int primary key auto_increment,
+    nomeFunc varchar(100) not null,
+    data_nasc date,
+    usuario varchar(6),
+    senha varchar(8)
+);
+
+create table locacao(
+	idLoc int primary key auto_increment,
+   	data_IN date NOT NULL,
+   	data_END date NOT NULL,
+	precoTotal double,
+	fk_idCliente int,
+    fk_idVeiculo int,
+	FOREIGN KEY(fk_idVeiculo) REFERENCES veiculo(idVeiculo),
+	FOREIGN KEY(fk_idCliente) REFERENCES cliente(idCliente)
+);
+
+drop table locacao;
+	
+
+-- INSERT
+
+INSERT INTO funcionario (nomeFunc, data_nasc, usuario, senha) VALUES ('Lucas Lima', '2002-12-09', 'Lucas', '12345678');
+INSERT INTO funcionario (nomeFunc, data_nasc, usuario, senha) VALUES ('Gustavo Sulpino', '2002-12-10', 'Gustavo', '12345678');
+INSERT INTO funcionario (nomeFunc, data_nasc, usuario, senha) VALUES ('Yuri Eduardo', '2002-12-11', 'Yuri', '12345678');
+
+insert into cliente(telefoneCliente, nomeCliente,emailCliente) values(199982248, "Gustavo Almeida", "lucaslima@gmail.com");
+insert into cliente(telefone, nomeCliente) values(19962735236, "Vállery Parente");
+insert into cliente(telefone, nomeCliente) values(19985462536, "Lucas Lima");
+
+insert into gerente(nomeGerente, telefone) values("Alberto Alves", 1998224380);
+insert into gerente(nomeGerente, telefone) values("Leticia Silva", 1996374725);
+insert into gerente(nomeGerente, telefone) values("Neymar Santos", 1996428363);
+
+insert into endereco( rua, bairro,  cidade, numero,Uf) values("Joaquim Marcelino Leite","jadrim minda", "Hortolândia", 15, "SP");
+insert into endereco(cep, rua, cidade, numero, estadoSigla) values(19362547, "Presidente Jk", "Rio de Janeiro", 40, "RJ");
+insert into endereco(cep, rua, cidade, numero, estadoSigla) values(15372638, "Neymar da Silva Santos Jr", "Belo Horizonte", 20, "MG");
+
+insert into veiculo(nomeVeiculo, modeloVeiculo, anoVeiculo, corVeiculo, usagem) values("Celta", "Hatch", 2009, "prata", "SemiNovo");
+insert into veiculo(nomeVeiculo, modeloVeiculo, anoVeiculo, corVeiculo, usagem) values("HB20", "Sedan", 2016, "preto", "Novo");
+insert into veiculo(nomeVeiculo, modeloVeiculo, anoVeiculo, corVeiculo, usagem) values("Camaro", "Coupe", 2020, "Amarelo", "SemiNovo");
+insert into veiculo(nomeVeiculo, modeloVeiculo, anoVeiculo, corVeiculo, usagem) values("Renegade", "SUV", 2022, "prata", "Novo");
+insert into veiculo(nomeVeiculo, modeloVeiculo, anoVeiculo, corVeiculo, usagem) values("Civic", "Sedan", 2016, "preto", "Usado");
+insert into veiculo(nomeVeiculo, modeloVeiculo, anoVeiculo, corVeiculo, usagem) values("Palio", "Hatch", 2018, "Branco", "Usado");
